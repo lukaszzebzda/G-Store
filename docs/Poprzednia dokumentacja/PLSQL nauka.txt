@@ -1,0 +1,40 @@
+declare
+    v1 number := 7;
+    v2 date default sysdate;
+begin
+    dbms_output.put_line('Wartosc zmiennej v1 wynosi: '||v1);
+    dbms_output.put_line('Aktualny czas to: '||to_char(v2,'fmDay dd-mm-yyyy hh24:mi:ss'));
+end;
+
+declare
+    v_log przedmioty.prze_nazwa%type;
+begin
+    select prze_nazwa
+    into v_log
+    from przedmioty
+    where prze_id = 2;
+dbms_output.put_line('Wartosc danej komorki wynosi: '||v_log);
+end;
+/
+
+declare
+    v1 number := &wartosc;
+begin
+    if  v1 > 0 then dbms_output.put_line('Dodatnia');
+    end if;
+end;
+/
+
+declare
+    v_cnt simple_integer := 1;
+begin
+    while v_cnt <= 100 loop
+        dbms_output.put_line(v_cnt);
+        v_cnt := v_cnt +1;
+    end loop;
+end;
+/
+    
+    
+    
+    

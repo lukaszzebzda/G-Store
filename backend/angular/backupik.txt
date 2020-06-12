@@ -1,0 +1,39 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+import { User} from '../user';
+import { UserService} from '../user.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  angForm: FormGroup;
+  users: User[];
+  error = '';
+  success = '';
+
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
+  getUsers(): void {
+    this.userService.getUser().subscribe(
+      (res: User[]) => {
+        this.users = res;
+        console.log(this.users);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+}

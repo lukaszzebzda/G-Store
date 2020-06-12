@@ -1,0 +1,80 @@
+
+<section  *ngIf="!selectedItem">
+  <div class="container">
+    <div class="row justify-content-around">
+      <div class="col-12 col-md-8 gra box text-center "*ngFor="let item of items">
+        <div>
+          <div><h2>{{item.PRZE_NAZWA}}</h2></div>
+          <div class="align-items-center"><img src="{{defaultImgPath+item.PRZE_IMAGE}}" class="image" alt="No nie ma"></div>
+          <div><span class="subtitle is-4">Cena: {{item.PRZE_CENA}}</span></div>
+
+          <button (click)="checkItem(item)" class="button is-primary">Zagraj w gre</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div *ngIf="selectedItem" class="container box">
+  <div [ngStyle]="{backgroundImage: defaultImgPath + selectedItem.PRZE_IMAGE}"></div>
+  <div class="selected-item">
+    <div class=" is-large is-fullwidth">
+      <h1 class="title is-1">{{selectedItem.PRZE_NAZWA}}</h1>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <img src="{{defaultImgPath+selectedItem.PRZE_IMAGE}}" class=" is-128-128" alt="No nie ma">
+      </div>
+      <div class="col-12 col-md-8 opis card">
+        <div class="card-content opis">
+          <p>{{selectedItem.PRZE_OPIS}}</p>
+        </div>
+        <hr>
+
+        <div class="stay-bottom">
+          Ocena krytyków: {{selectedItem.PRZE_CRITIC_RATE}}<ngb-rating [(rate)]="selectedItem.PRZE_CRITIC_RATE" [readonly]="true"></ngb-rating>
+
+          <div class="align-items-end">
+            <p>Cena: {{selectedItem.PRZE_CENA}} zł.</p>
+            <button class="button is-primary">Uruchom</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="theList" class="card" >
+    <div>
+      <h2 class="card-content">Sekcja komentarzy</h2>
+      <hr>
+
+      <div class="container is-fullwidth">
+        <ngb-rating [(rate)]="currentRate"></ngb-rating>
+        <br>
+        <mat-form-field class="form-field-width">
+          <mat-label>Leave a comment</mat-label>
+          <textarea matInput placeholder="Tell us about your experience with this game!" [(ngModel)]="currentComment"></textarea>
+        </mat-form-field>
+        <br>
+        <button (click)="addComment()" class="button is-primary">Wyslij komentarz</button>
+      </div>
+      <div *ngIf="ratings">
+        <div class="list-inline">
+          <div role="listitem" *ngFor="let rating of ratings"  class="card-content list-inline">
+            <div *ngIf="!(rating.USR_ID==message.USR_ID)" class="card-content ">
+              <span>Autor: {{rating.USR_NAME}}, napisał: <br>{{rating.OCE_MESSAGE}} <br> {{rating.OCE_DATE}}</span>
+              <br>
+              <ngb-rating [(rate)]="rating.OCE_RATE" [readonly]="true"></ngb-rating>
+            </div>
+            <div *ngIf="(rating.USR_ID==message.USR_ID)" class="card-content current-usser-comment">
+              <span>Autor: {{rating.USR_NAME}}, napisał: <br>{{rating.OCE_MESSAGE}} <br> {{rating.OCE_DATE}}</span>
+              <br>
+              <ngb-rating [(rate)]="rating.OCE_RATE" [readonly]="true"></ngb-rating>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

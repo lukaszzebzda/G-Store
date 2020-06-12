@@ -1,0 +1,120 @@
+create or replace procedure show_items(rekordy OUT SYS_REFCURSOR)
+AS
+BEGIN
+OPEN rekordy FOR
+SELECT * FROM PRZEDMIOTY;
+END;
+============================================================================
+CREATE OR REPLACE PROCEDURE 
+ makeTransaction (price IN number, przedmiot_id IN NUMBER, user_id IN NUMBER, tra_date OUT DATE) 
+ AS
+ tra_id TRANSAKCJE.TRA_ID%TYPE;
+ l_exst number;
+ ex_custom EXCEPTION;
+ BEGIN
+
+select count(*)
+        into l_exst
+        from BIBLIOTEKI
+        where BIBLIOTEKI.PRZE_ID = przedmiot_id
+        AND BIBLIOTEKI.USR_ID = user_id;
+ 
+if l_exst = 0
+then
+
+ tra_date := sysdate;
+ INSERT INTO TRANSAKCJE (tra_id, tra_price, tra_datetime, prze_id, usr_id)
+ VALUES ('',price ,tra_date,przedmiot_id,user_id) RETURNING TRA_ID INTO tra_id;
+ 
+ INSERT INTO BIBLIOTEKI (bib_id, bib_date, usr_id, prze_id, tra_id)
+ VALUES ('', tra_date, user_id, przedmiot_id, tra_id);
+ 
+else
+    RAISE ex_custom;
+end if;
+ 
+EXCEPTION
+    WHEN ex_custom THEN
+        RAISE_APPLICATION_ERROR(-20001,'Ta gra jest juz w posiadaniu tego uzytkownika');
+ END;
+ /
+ 
+ ===========================================================================================
+ =============================================================================================
+ create or replace procedure show_library(uzytkownik_id IN number, rekordy OUT SYS_REFCURSOR)
+AS
+BEGIN
+OPEN rekordy FOR
+SELECT PRZEDMIOTY.PRZE_ID, PRZEDMIOTY.PRZE_NAZWA, PRZEDMIOTY.PRZE_OPIS, PRZEDMIOTY.PRZE_CENA, PRZEDMIOTY.PRZE_IMAGE, PRZEDMIOTY.KATE_ID, PRZEDMIOTY.PRZE_CRITIC_RATE
+				FROM BIBLIOTEKI
+				INNER JOIN PRZEDMIOTY
+				ON BIBLIOTEKI.PRZE_ID = PRZEDMIOTY.PRZE_ID
+				AND BIBLIOTEKI.USR_ID = uzytkownik_id;
+END;
+
+ ===========================================================================================
+ =============================================================================================
+ create or replace procedure login(login IN VARCHAR2, haslo IN VARCHAR2, rekordy OUT SYS_REFCURSOR)
+AS
+BEGIN
+OPEN rekordy FOR
+SELECT * FROM uzytkownicy 
+WHERE USR_EMAIL = login
+and USR_PASSWORD = haslo;
+END;
+ ===========================================================================================
+ =============================================================================================
+create or replace procedure registration(username IN VARCHAR2, pwd IN VARCHAR2, email IN VARCHAR2, phone IN NUMBER, uzy_id OUT NUMBER)
+AS
+
+uzytkownik_perm number := 1;
+aktu_date date;
+BEGIN
+aktu_date := sysdate;
+INSERT INTO UZYTKOWNICY(USR_ID,USR_NAME,USR_EMAIL,USR_PASSWORD,USR_BIRT,USR_TEL,USR_PERMISSION) 
+VALUES ('',username,email,pwd,aktu_date,phone,1)
+RETURNING USR_ID INTO uzy_id;
+END;
+ ===========================================================================================
+ =============================================================================================
+  create or replace procedure showComments(Przedmiot_ID IN NUMBER, rekordy OUT SYS_REFCURSOR)
+AS
+BEGIN
+OPEN rekordy FOR
+SELECT OCENY.OCE_ID, UZYTKOWNICY.USR_NAME, OCENY.OCE_RATE, OCENY.OCE_MESSAGE, OCENY.USR_ID, OCENY.PRZE_ID, OCENY.OCE_DATE 
+		FROM OCENY
+		INNER JOIN UZYTKOWNICY
+		ON OCENY.USR_ID = UZYTKOWNICY.USR_ID
+		AND OCENY.PRZE_ID = Przedmiot_ID;
+END;
+ ===========================================================================================
+ =============================================================================================
+  create or replace procedure addComment(ocena_rate IN NUMBER, ocena_message IN VARCHAR2, uzytkownik_id NUMBER, Przedmiot_ID IN NUMBER)
+AS
+ any_rows_found number;
+ ex_custom EXCEPTION;
+BEGIN
+select count(*)
+  into   any_rows_found
+  from   OCENY
+  where  usr_id = uzytkownik_id and
+  prze_id = Przedmiot_ID;
+  
+  if any_rows_found = 1 then
+  RAISE ex_custom;
+  else
+INSERT INTO OCENY (oce_id, oce_rate, oce_message, usr_id, prze_id) 
+		VALUES ('',ocena_rate,ocena_message, uzytkownik_id, Przedmiot_ID);
+end if;
+EXCEPTION
+    WHEN ex_custom THEN
+        RAISE_APPLICATION_ERROR(-20002,'Dodales juz komentarz dla tej gry!');
+END;
+ ===========================================================================================
+ =============================================================================================
+ create or replace procedure show_Categories( rekordy OUT SYS_REFCURSOR )
+AS
+BEGIN
+OPEN rekordy FOR
+SELECT * FROM KATEGORIE;
+END;

@@ -1,0 +1,56 @@
+li {
+  display: inline-block;
+  max-width: 250px;
+}
+
+.gra{
+  max-width: 350px;
+}
+.container{
+  padding: 30px;
+  display: block;
+}
+.image{
+  margin: auto;
+}
+.Title{
+  font-size: 43px
+}
+.image{
+  max-width: 320px;
+  max-height: 320px;
+}
+.selected-item{
+  display: contents;
+}
+
+.opis{
+  display: inline;
+  font-size: 18px;
+  position:relative;
+}
+
+.stay-bottom{
+  padding-bottom: 10px;
+}
+
+#theList{
+  margin-top: 15px;
+}
+li{
+  display:table-cell;
+}
+
+ngb-rating {
+  font-size: 2rem;
+  color: #b0c4de;
+}
+.current-usser-comment{
+  border: cornflowerblue dotted;
+}
+.card-content{
+  font-size: 1rem;
+}
+.form-field-width{
+  width: 260px;
+}

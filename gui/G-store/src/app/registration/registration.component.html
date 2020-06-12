@@ -1,0 +1,54 @@
+<h2 class="text-center">Registration</h2>
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6 col-md-offset-3">
+    <div class="jumbotron">
+      <form [formGroup]="angForm" (ngSubmit)="postdata(angForm)" autocomplete="off" >
+
+        <div class="form-group">
+          <label for="name">User Name</label>
+          <input type="text" name="name" formControlName="name" autocomplete="off" class="form-control input-sm" placeholder="User Name">
+
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" formControlName="email" autocomplete="off" class="form-control input-sm" placeholder="Email Address">
+
+        </div>
+        <div class="form-group">
+          <label for="Password">Password</label>
+          <input type="password" name="Password" formControlName="password"  autocomplete="off" class="form-control input-sm" placeholder="Password">
+
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker name="picker"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+
+        <div class="form-group">
+          <label for="mobile">Mobile No</label>
+          <input type="text" name="mobile" formControlName="mobile" autocomplete="off" class="form-control input-sm" placeholder="Mobile No">
+<!--          <mat-form-field class="example-full-width">-->
+<!--            <mat-label for="mobile">Telefon</mat-label>-->
+<!--            <span matPrefix>+48 &nbsp;</span>-->
+<!--            <input type="tel" matInput placeholder="555-555-1234">-->
+<!--            <mat-icon matSuffix>mode_edit</mat-icon>-->
+<!--          </mat-form-field>-->
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!angForm.valid">Registration</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-3">
+  </div>
+
+</div>
