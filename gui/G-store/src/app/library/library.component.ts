@@ -23,7 +23,7 @@ export class LibraryComponent implements OnInit {
   myComment: RatingsReceived;
   currentRate: number;
   currentComment: string;
-  // wiadomosc: string;
+  amIEdditingMyComment = false;
 
   constructor(private itemService: ItemService, private user: UserService, private ratingsService: RatingsService,  private router: Router) { }
 
@@ -34,6 +34,7 @@ export class LibraryComponent implements OnInit {
     }
     this.getLibItems();
     this.selectedItem = null;
+    this.amIEdditingMyComment = false;
   }
 
   getLibItems(): void {
@@ -59,7 +60,17 @@ export class LibraryComponent implements OnInit {
     this.ratingsService.getRatings(this.selectedItem.PRZE_ID).subscribe(
       (res: RatingsReceived[]) => {
         this.ratings = res;
-        console.log(this.ratings);
+        // this.ratings.forEach(function(value) {
+        //   console.log(value.OCE_MESSAGE);
+        // });
+        this.myComment = null;
+        for (let rate of this.ratings){
+          if (rate.USR_ID === this.message.USR_ID){
+            // console.log('Mamy go');
+            this.myComment = rate;
+          }
+        }
+        // console.log(this.ratings);
       },
       (err) => {
         console.log('Nie udało się załadować komentarzy');
@@ -107,4 +118,23 @@ export class LibraryComponent implements OnInit {
       this.router.navigate([uri]));
   }
 
+
+  showEditComment(){
+    this.amIEdditingMyComment = true;
+    this.currentRate = this.myComment.OCE_RATE;
+  }
+
+  updateComment(): void{
+    this.ratingsService.updateRatings(this.currentRate, this.currentComment, this.message.USR_ID, this.selectedItem.PRZE_ID).subscribe(
+      (res: string) => {
+        // this.wiadomosc = res;
+        // console.log(this.wiadomosc);
+        this.toLibrary();
+      },
+      (err) => {
+        console.log('Nie zaktualizować komentarza się dodac komentarza');
+        this.error = err;
+      }
+    );
+  }
 }

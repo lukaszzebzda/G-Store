@@ -18,18 +18,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.getItems();
   }
 
-  getItems(): void {
-    this.itemService.getItems().subscribe(
-      (res: Item[]) => {
-        this.items = res;
-      },
-      (err) => {
-        this.error = err;
-      }
-    );
-  }
 }
 

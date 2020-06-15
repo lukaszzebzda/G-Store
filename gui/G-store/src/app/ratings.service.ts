@@ -34,6 +34,15 @@ export class RatingsService {
         catchError(this.handleError));
   }
 
+  updateRatings( ocena, wiadomosc, uzytkownik_id, przedmiot_id ){
+    return this.http.post(this.baseUrl + '/updateComment.php', { ocena, wiadomosc, uzytkownik_id, przedmiot_id })
+      .pipe(map((res) => {
+          this.odpowiedz = res['data'];
+          return this.odpowiedz;
+        }),
+        catchError(this.handleError));
+  }
+
 
 
 

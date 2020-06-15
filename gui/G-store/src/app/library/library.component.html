@@ -44,12 +44,18 @@
     </div>
   </div>
 
+
+
+
+
+
+
   <div id="theList" class="card" >
     <div>
-      <h2 class="card-content">Sekcja komentarzy</h2>
+      <h1 class="card-content">Sekcja komentarzy</h1>
       <hr>
 
-      <div class="container is-fullwidth">
+      <div *ngIf="!myComment" class="container is-fullwidth">
         <ngb-rating [(rate)]="currentRate"></ngb-rating>
         <br>
         <mat-form-field class="form-field-width">
@@ -59,6 +65,21 @@
         <br>
         <button (click)="addComment()" class="button is-primary">Wyslij komentarz</button>
       </div>
+
+      <div *ngIf="amIEdditingMyComment" class="container is-fullwidth">
+        <ngb-rating [(rate)]="currentRate"></ngb-rating>
+        <br>
+        <mat-form-field class="form-field-width">
+          <mat-label>Leave a comment</mat-label>
+          <textarea matInput placeholder="{{myComment.OCE_MESSAGE}}" [(ngModel)]="currentComment"></textarea>
+        </mat-form-field>
+        <br>
+        <button (click)="updateComment()" class="button is-primary">Zaktualizuj swoj komentarz</button>
+      </div>
+
+
+
+
       <div *ngIf="ratings">
         <div class="list-inline">
           <div role="listitem" *ngFor="let rating of ratings"  class="card-content list-inline">
@@ -68,9 +89,10 @@
               <ngb-rating [(rate)]="rating.OCE_RATE" [readonly]="true"></ngb-rating>
             </div>
             <div *ngIf="(rating.USR_ID==message.USR_ID)" class="card-content current-usser-comment">
-              <span>Autor: {{rating.USR_NAME}}, napisał: <br>{{rating.OCE_MESSAGE}} <br> {{rating.OCE_DATE}}</span>
-              <br>
-              <ngb-rating [(rate)]="rating.OCE_RATE" [readonly]="true"></ngb-rating>
+                <span>Autor: {{rating.USR_NAME}}, napisał: <br>{{rating.OCE_MESSAGE}} <br> {{rating.OCE_DATE}}</span>
+                <br>
+                <ngb-rating [(rate)]="rating.OCE_RATE" [readonly]="true"></ngb-rating>
+                <button (click)="this.showEditComment()" class="button is-primary">Edytuj</button>
             </div>
           </div>
         </div>

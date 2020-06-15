@@ -29,6 +29,9 @@ export class StoreComponent implements OnInit {
   checked = false;
   currentRate = 8;
   // private list: Element;
+  private that: this;
+  private messageSuccess: boolean;
+
 
   constructor(private itemService: ItemService, private user: UserService, private ratingsService: RatingsService, private transactionService: TransactionService, private router: Router) { }
 
@@ -61,13 +64,17 @@ export class StoreComponent implements OnInit {
   }
 
   buyItem(): void{
+    // document.getElementsByTagName('buy')[0].setAttribute('[disabled]', 'true');
     if (this.message){
       console.log('Kupuje item: ' + this.selectedItem.PRZE_NAZWA + ' Przez: ' + this.message.USR_NAME);
       this.transactionService.makeTransaction(this.selectedItem.PRZE_CENA, this.selectedItem.PRZE_ID, this.message.USR_ID)
         .pipe(first())
         .subscribe(
           data => {
-            this.router.navigate(['library']);
+            alert('Gratulacje udany zakup');
+            setTimeout(() => {
+              this.router.navigate(['library']);
+            }, 3000);
           },
           error => {
             // console.log('oops', error);
@@ -92,4 +99,5 @@ export class StoreComponent implements OnInit {
       }
     );
   }
+
 }
