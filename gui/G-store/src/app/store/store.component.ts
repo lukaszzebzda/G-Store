@@ -31,6 +31,8 @@ export class StoreComponent implements OnInit {
   // private list: Element;
   private that: this;
   private messageSuccess: boolean;
+  private wiadomosc: string;
+  private wiadomosc1: string;
 
 
   constructor(private itemService: ItemService, private user: UserService, private ratingsService: RatingsService, private transactionService: TransactionService, private router: Router) { }
@@ -71,6 +73,8 @@ export class StoreComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
+            this.wiadomosc = 'Cześć ' + this.message.USR_NAME + ',\r\nDziękujemy za zamówienie gry: ' + this.selectedItem.PRZE_NAZWA + '.\r\n Zakupioną grę znajdziesz w swojej bibliotece\r\n\r\nDziękujemy za zaufanie i polecamy się na przyszłość. Zespół G-Store.';
+            this.sendMail();
             alert('Gratulacje udany zakup');
             setTimeout(() => {
               this.router.navigate(['library']);
@@ -95,6 +99,19 @@ export class StoreComponent implements OnInit {
       },
       (err) => {
         console.log('Nie udało się załadować komentarzy');
+        this.error = err;
+      }
+    );
+  }
+
+  sendMail(): void{
+    this.transactionService.sendMail(this.message.USR_EMAIL, this.wiadomosc).subscribe(
+      (res: string) => {
+        this.wiadomosc1 = res;
+        console.log(res);
+      },
+      (err) => {
+        console.log('Nie udało się wysłać maila');
         this.error = err;
       }
     );

@@ -12,6 +12,7 @@ export class TransactionService {
   baseUrl = 'http://localhost/angular';
   redirectUrl: string;
   transactions: Transaction[];
+  odpowiedz: string;
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +26,16 @@ export class TransactionService {
         catchError(this.handleError));
   }
 
+  sendMail( adres, wiadomosc ){
+    return this.http.post(this.baseUrl + '/mailService.php', { adres, wiadomosc})
+      .pipe(map((res) => {
+          this.odpowiedz = res['data'];
+          return this.odpowiedz;
+        }),
+        catchError(this.handleError));
+  }
+
+
   private handleError(error: HttpErrorResponse) {
     // console.log(error);
     alert(error.error);
@@ -32,6 +43,8 @@ export class TransactionService {
     // return an observable with a user friendly message
     return throwError('Error! something went wrong.');
   }
+
+
 }
 
 

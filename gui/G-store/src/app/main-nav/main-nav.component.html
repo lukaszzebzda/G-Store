@@ -7,6 +7,7 @@
     <mat-nav-list>
       <a *ngIf="message" mat-list-item (click)="toLibrary()">Biblioteka</a>
       <a mat-list-item (click)="toShop()">Sklep</a>
+      <a mat-list-item routerLink="admin">Panel admina</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

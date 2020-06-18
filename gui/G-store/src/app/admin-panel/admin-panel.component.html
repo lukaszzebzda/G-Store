@@ -1,0 +1,77 @@
+<div class="container admin-container">
+  <ngb-tabset type="pills">
+    <ngb-tab title="Przedmioty">
+      <ng-template ngbTabContent>
+<!--        Lista itemów ponizej                  -->
+  <div class="level">
+        <div class="level-left">
+          <button *ngIf="!itemForm" (click)="showitemList()" class="button is-primary">Dodaj Przedmiot</button>
+
+          <!--        Formularz dodawania przedmiotu        -->
+
+          <div *ngIf="itemForm" class="container">
+            <h1>Hero Form</h1>
+            <form>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="alterEgo">Alter Ego</label>
+                <input type="text" class="form-control" id="alterEgo">
+              </div>
+
+              <div class="form-group">
+                <label for=""></label>
+              </div>
+
+              <button type="submit" class="btn btn-success">Submit</button>
+
+            </form>
+          </div>
+        </div>
+
+        <div class="level-right">
+<!--          TU można dodać podgląd live dodawanego itemu-->
+        </div>
+
+  </div>
+
+        <mat-list>
+          <mat-list-item *ngFor="let item of items" class="admin-item-list">
+            <img src="{{defaultImgPath+item.PRZE_IMAGE}}" class=" image is-48x48" alt="No nie ma">
+            {{item.PRZE_NAZWA}}
+          </mat-list-item>
+        </mat-list>
+
+
+      </ng-template>
+    </ngb-tab>
+
+
+
+    <ngb-tab title="Kategorie">
+      <ng-template ngbTabContent>
+        <div class="container">
+          <form [formGroup]="angForm" (ngSubmit)="addCategory(angForm)" autocomplete="off">
+            <div class="form-group">
+              <label for="name">Nazwa kateogrii</label>
+              <input type="text" name="name" formControlName="name" class="form-control" id="NazwaKateogrii" required minlength="3">
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="!angForm.valid" >Submit</button>
+          </form>
+
+        </div>
+        <mat-list>
+          <mat-list-item *ngFor="let category of categories" class="admin-item-list">
+            {{category.KATE_ID}}
+            {{category.KATE_NAZWA}}
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+
+
+</div>

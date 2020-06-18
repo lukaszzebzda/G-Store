@@ -25,7 +25,7 @@ export class LibraryComponent implements OnInit {
   currentComment: string;
   amIEdditingMyComment = false;
 
-  constructor(private itemService: ItemService, private user: UserService, private ratingsService: RatingsService,  private router: Router) { }
+  constructor(private itemService: ItemService, private user: UserService, private ratingsService: RatingsService, private router: Router) { }
 
   ngOnInit(): void {
     this.user.currentMessage.subscribe(message => this.message = message);

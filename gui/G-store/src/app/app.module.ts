@@ -26,6 +26,8 @@ import {MatInputModule} from '@angular/material/input';
 import { LibraryComponent } from './library/library.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -36,29 +38,31 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FooterComponent,
     LoginComponent,
     RegistrationComponent,
-    LibraryComponent
+    LibraryComponent,
+    AdminPanelComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-    MatGridListModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatCheckboxModule,
-    FormsModule,
-    NgbModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        LayoutModule,
+        MatGridListModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatCheckboxModule,
+        FormsModule,
+        NgbModule,
+        MatTabsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,7 @@ import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 
 import { Item } from './item';
+import {Category} from './category';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class ItemService {
 
   baseUrl = 'http://localhost/angular';
   item: Item[];
+  category: Category[];
 
   constructor(private http: HttpClient) { }
 
@@ -34,6 +36,22 @@ export class ItemService {
         return this.item;
       }),
       catchError(this.handleError));
+  }
+
+  getCategories(): Observable<Category[]>{
+    return this.http.get(this.baseUrl + '/categories.php').pipe(
+      map((res) => {
+        this.category = res['data'];
+        return this.category;
+      }),
+      catchError(this.handleError));
+  }
+
+  public addCategory( nazwa ){
+    return this.http.post<any>(this.baseUrl + '/addCategory.php', { nazwa })
+      .pipe(map(Category => {
+        return Category;
+      }));
   }
 
   private handleError(error: HttpErrorResponse) {
