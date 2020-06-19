@@ -18,9 +18,8 @@ BEGIN
 EXCEPTION
     WHEN ex_custom THEN
         RAISE_APPLICATION_ERROR(-20002, 'Taka kategoria juz istnieje!');
-
-
 END;
+/
 
 create or replace procedure show_categories(rekordy OUT SYS_REFCURSOR)
 AS
@@ -28,6 +27,7 @@ BEGIN
     OPEN rekordy FOR
         SELECT * FROM KATEGORIE;
 END;
+/
 
 create or replace procedure addItem(nazwa VARCHAR2, opis VARCHAR2, cena NUMBER, image VARCHAR2, kategoria NUMBER, ocena NUMBER)
 AS
@@ -51,3 +51,4 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20004, 'Taki przedmiot juz istnieje!');
 
 END;
+/
