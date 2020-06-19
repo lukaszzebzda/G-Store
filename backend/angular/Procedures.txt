@@ -28,3 +28,26 @@ BEGIN
     OPEN rekordy FOR
         SELECT * FROM KATEGORIE;
 END;
+
+create or replace procedure addItem(nazwa VARCHAR2, opis VARCHAR2, cena NUMBER, image VARCHAR2, kategoria NUMBER, ocena NUMBER)
+AS
+    any_rows_found number;
+    ex_custom EXCEPTION;
+BEGIN
+    select count(*)
+    into any_rows_found
+    from PRZEDMIOTY
+    where PRZE_NAZWA = nazwa;
+
+    if any_rows_found = 1 then
+        RAISE ex_custom;
+    else
+        INSERT INTO PRZEDMIOTY (PRZE_ID, PRZE_NAZWA, PRZE_OPIS, PRZE_CENA, PRZE_IMAGE, KATE_ID, PRZE_CRITIC_RATE)
+        VALUES ('', nazwa, opis, cena, image, kategoria, ocena);
+        COMMIT;
+    end if;
+EXCEPTION
+    WHEN ex_custom THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Taki przedmiot juz istnieje!');
+
+END;

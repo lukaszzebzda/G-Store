@@ -10,23 +10,43 @@
           <!--        Formularz dodawania przedmiotu        -->
 
           <div *ngIf="itemForm" class="container">
-            <h1>Hero Form</h1>
-            <form>
+            <h1>Dodaj nową grę</h1>
+            <form [formGroup]="newItemForm" (ngSubmit)="addItem(newItemForm)" autocomplete="off">
               <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" required>
+                <label for="name">Nazwa Przedmiotu</label>
+                <input type="text" formControlName="itemName" class="form-control" id="name" required>
               </div>
 
               <div class="form-group">
-                <label for="alterEgo">Alter Ego</label>
-                <input type="text" class="form-control" id="alterEgo">
+                <label for="opis">Opis</label>
+                <textarea formControlName="itemDescription" class="form-control" id="opis" required></textarea>
               </div>
 
               <div class="form-group">
-                <label for=""></label>
+                <label for="cena">Cena</label>
+                <input type="number" formControlName="itemCena" class="form-control" id="cena" required>
               </div>
 
-              <button type="submit" class="btn btn-success">Submit</button>
+              <div class="form-group">
+                <label for="image">Nazwa zdjęcia</label>
+                <input type="text" formControlName="itemImage" class="form-control" id="image" required>
+              </div>
+
+              <div class="form-group">
+                <label> Wybierz kateogorię</label>
+                <select class="custom-select" formControlName="itemCategory" required>
+                  <option value="" disabled>Wybierz kategorie</option>
+                  <option *ngFor="let category of categories"  ngValue="{{category.KATE_ID}}">{{category.KATE_NAZWA}}</option>
+                </select>
+                <div class="invalid-feedback">Example invalid custom select feedback</div>
+              </div>
+
+              <div class="form-group">
+                <label for="rating">Ocena krytyków</label>
+                <input type="number" formControlName="itemRating" class="form-control" id="rating" required>
+              </div>
+
+              <button type="submit" class="btn btn-success" [disabled]="!newItemForm.valid" >Submit</button>
 
             </form>
           </div>

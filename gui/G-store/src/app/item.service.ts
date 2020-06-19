@@ -54,6 +54,13 @@ export class ItemService {
       }));
   }
 
+  public addItem( nazwa, opis, cena, image, kategoria, ocena ){
+    return this.http.post<any>(this.baseUrl + '/addItem.php', { nazwa, opis, cena, image, kategoria, ocena })
+      .pipe(map(Item => {
+        return Item;
+      }));
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
     // console.log('XD');

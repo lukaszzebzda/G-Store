@@ -27,11 +27,22 @@ export class AdminPanelComponent implements OnInit {
   defaultImgPath = 'assets/img/';
   itemForm = false;
   angForm: FormGroup;
+  newItemForm: FormGroup;
 
   constructor(private fb: FormBuilder, private itemService: ItemService, private user: UserService, private router: Router) {
     this.angForm = this.fb.group({
       name: ['', [Validators.required , Validators.minLength(1)]],
     });
+
+    this.newItemForm = this.fb.group({
+      itemName: ['', [Validators.required , Validators.minLength(1)]],
+      itemDescription: ['', [Validators.required , Validators.minLength(5)]],
+      itemCategory: ['', [Validators.required]],
+      itemCena: ['', [Validators.required, Validators.min(0)]],
+      itemImage: ['', [Validators.required]],
+      itemRating: ['', [Validators.required, Validators.max(10), Validators.min(0)]]
+    });
+
   }
 
   ngOnInit(): void {
@@ -46,7 +57,6 @@ export class AdminPanelComponent implements OnInit {
 
   showitemList(){
     this.itemForm = true;
-    console.log('XD');
   }
 
 
@@ -91,5 +101,21 @@ export class AdminPanelComponent implements OnInit {
     alert(allInfo);
   }
 
+  addItem(newItemForm1){
+    // console.log('Dodajemy:\n' + newItemForm1.value.itemName + '\n' + newItemForm1.value.itemDescription
+    //     + '\n' + newItemForm1.value.itemCategory + '\n' + newItemForm1.value.itemCena
+    //     + '\n' + newItemForm1.value.itemImage + '\n' + newItemForm1.value.itemRating );
+
+    this.itemService.addItem(newItemForm1.value.itemName, newItemForm1.value.itemDescription, newItemForm1.value.itemCena, newItemForm1.value.itemImage, newItemForm1.value.itemCategory, newItemForm1.value.itemRating )
+        .pipe(first())
+        .subscribe(
+            data => {
+              console.log('Dodano przemdiot');
+              this.getAdminItems();
+            },
+            error => {
+              console.log('oops', error);
+            });
+  }
 
 }
