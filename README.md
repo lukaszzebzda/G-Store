@@ -18,14 +18,14 @@ The main goal of project was to create an online video game store. In the app, t
 ## Screenshots
 
 <p float="left">
-<img src="/readMeImages/main_menu_screen.png" alt="Main menu" width=50%>
-<img src="/readMeImages/registration_screen.png" alt="Registration screen" width=50%>
-<img src="/readMeImages/login_screen.png" alt="Login screen" width=50%>
-<img src="/readMeImages/shop_screen.png" alt="Shop screen" width=50%>
-<img src="/readMeImages/game_details_screen.png" alt="Game details" width=50%>
-<img src="/readMeImages/ratings_comments_screen.png" alt="Ratings and comments" width=50%>
-<img src="/readMeImages/admin_items_screen.png" alt="Admin - items" width=50%>
-<img src="/readMeImages/admin_categories_screen.png" alt="Admin - categories" width=50%>
+<img src="/readMeImages/main_menu_screen.png" alt="Main menu" width="410">
+<img src="/readMeImages/registration_screen.png" alt="Registration screen" width="410">
+<img src="/readMeImages/login_screen.png" alt="Login screen" width="410">
+<img src="/readMeImages/shop_screen.png" alt="Shop screen" width="410">
+<img src="/readMeImages/game_details_screen.png" alt="Game details" width="410">
+<img src="/readMeImages/ratings_comments_screen.png" alt="Ratings and comments" width="410">
+<img src="/readMeImages/admin_items_screen.png" alt="Admin - items" width="410">
+<img src="/readMeImages/admin_categories_screen.png" alt="Admin - categories" width="410">
 </p>
 
 ## Features
