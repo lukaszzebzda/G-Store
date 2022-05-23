@@ -17,14 +17,16 @@ The main goal of project was to create an online video game store. In the app, t
 
 ## Screenshots
 
-![Main menu](/readMeImages/main_menu_screen.png)
-![Registration screen](/readMeImages/registration_screen.png)
-![Login screen](/readMeImages/login_screen.png)
-![Shop screen](/readMeImages/shop_screen.png)
-![Game details](/readMeImages/game_details_screen.png)
-![Ratings and comments](/readMeImages/ratings_comments_screen.png)
-![Admin - items](/readMeImages/admin_items_screen.png)
-![Admin - categories](/readMeImages/admin_categories_screen.png)
+<p float="left">
+<img src="/readMeImages/main_menu_screen.png" alt="Main menu" width="48">
+<img src="/readMeImages/registration_screen.png" alt="Registration screen" width="48">
+<img src="/readMeImages/login_screen.png" alt="Login screen" width="48">
+<img src="/readMeImages/shop_screen.png" alt="Shop screen" width="48">
+<img src="/readMeImages/game_details_screen.png" alt="Game details" width="48">
+<img src="/readMeImages/ratings_comments_screen.png" alt="Ratings and comments" width="48">
+<img src="/readMeImages/admin_items_screen.png" alt="Admin - items" width="48">
+<img src="/readMeImages/admin_categories_screen.png" alt="Admin - categories" width="48">
+</p>
 
 ## Features
 
